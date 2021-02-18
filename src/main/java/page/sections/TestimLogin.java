@@ -3,6 +3,7 @@ package page.sections;
 import java.awt.Window;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.Scrollable;
@@ -37,19 +38,19 @@ public class TestimLogin {
 //        System.out.println("Opening extension");
 //        driver.manage().window().maximize();
 //		Thread.sleep(500);
-        driver.get("https://testim.io/");
-        Thread.sleep(1000);
-        driver.manage().window().maximize();
-        Thread.sleep(1000);
-        driver.navigate().refresh();
-        Thread.sleep(2000);
-        System.out.println("Refresh successfully");
-		
-		
-		
-		
-		System.out.println(driver.getTitle());
-		
+//        driver.get("https://testim.io/");
+//        Thread.sleep(1000);
+//        driver.manage().window().maximize();
+//        Thread.sleep(1000);
+//        driver.navigate().refresh();
+//        Thread.sleep(2000);
+//        System.out.println("Refresh successfully");
+//		
+//		
+//		
+//		
+//		System.out.println(driver.getTitle());
+//		
 //		driver.findElement(By.xpath("//a[contains(.,'Login')]")).click();
 //		Thread.sleep(1000);
 //		driver.findElement(By.xpath("//input[@name='email']")).click();
@@ -72,35 +73,60 @@ public class TestimLogin {
 		
 		//handle new tab
 		
-		String parentTab = driver.getWindowHandle();
-		System.out.println("Current window ID is: "+ parentTab);
+//		String parentTab = driver.getWindowHandle();
+//		System.out.println("Current window ID is: "+ parentTab);
+//		
+//		JavascriptExecutor js = (JavascriptExecutor) driver;
+//		js.executeScript("javascript:window.scrollBy(0,2000)");
+//		
+//		Thread.sleep(1000);
+//		
+//		
+//		
+//		driver.findElement(By.xpath("(//a[@class='btn'])[2]")).click();
+//		Thread.sleep(1000);
+//		
+//		Set<String> allWindows = driver.getWindowHandles();
+//		int count = allWindows.size();
+//		System.out.println("Total Windows: "+count);
+//		
+//		for(String child:allWindows) {
+//			
+//			if(!parentTab.equalsIgnoreCase(child)) {
+//				driver.switchTo().window(child);
+//			}
+//		}
+//		
+//		System.out.println(driver.getTitle());
+//		Thread.sleep(2000);
+//		driver.close();
+//		driver.switchTo().window(parentTab);
+//		driver.navigate().refresh();
 		
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("javascript:window.scrollBy(0,2000)");
 		
+		//handle new windows
+		
+		driver.get("https://demoqa.com/browser-windows");
 		Thread.sleep(1000);
-		
-		
-		
-		driver.findElement(By.xpath("(//a[@class='btn'])[2]")).click();
+		driver.manage().window().maximize();
 		Thread.sleep(1000);
-		
-		Set<String> allWindows = driver.getWindowHandles();
-		int count = allWindows.size();
-		System.out.println("Total Windows: "+count);
-		
-		for(String child:allWindows) {
-			
-			if(!parentTab.equalsIgnoreCase(child)) {
-				driver.switchTo().window(child);
-			}
-		}
-		
 		System.out.println(driver.getTitle());
-		Thread.sleep(2000);
-		driver.close();
-		driver.switchTo().window(parentTab);
-		driver.navigate().refresh();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//button[@id='windowButton']")).click();
+		Thread.sleep(1000);
+		Set <String> windowsIds = driver.getWindowHandles();
+		Iterator <String> iter = windowsIds.iterator();
+		
+		String mainWindow = iter.next();
+		String childWindow= iter.next();
+		driver.switchTo().window(childWindow);
+		Thread.sleep(1000);
+		driver.manage().window().maximize();
+		System.out.println(driver.getTitle());
+		
+		
+		
+		
 		
 		
 	}
